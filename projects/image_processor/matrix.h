@@ -6,7 +6,7 @@
 #include "filter.h"
 
 
-class Matrix : virtual public Filter {
+class Matrix : public Filter {
 public:
     using MatrixBody = std::vector<std::vector<double>>;
 

@@ -142,19 +142,6 @@ contrib_catch_main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/contrib_catch_main.dir/build.make CMakeFiles/contrib_catch_main.dir/build
 .PHONY : contrib_catch_main/fast
 
-#=============================================================================
-# Target rules for targets named test
-
-# Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
-.PHONY : test
-
-# fast build rule for target.
-test/fast:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test.dir/build.make test/CMakeFiles/test.dir/build
-.PHONY : test/fast
-
 BMP.o: BMP.cpp.o
 .PHONY : BMP.o
 
@@ -501,7 +488,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... contrib_catch_main"
 	@echo "... image_processor"
-	@echo "... test"
 	@echo "... BMP.o"
 	@echo "... BMP.i"
 	@echo "... BMP.s"

@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 
     std::string input_address = argv[1];
     BMP bmp;
-    bmp.Read(input_address);
+    auto image = bmp.Read(input_address);
     std::string output_file(argv[2]);
 
     for (int i = 3; i < argc; ++i) {
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
             }
             int64_t width = std::stoll(argv[i + 1]);
             int64_t height = std::stoll(argv[i + 2]);
-            bmp.Apply(Crop(static_cast<size_t>(height), static_cast<size_t>(width)));
+            image = Crop(static_cast<size_t>(height), static_cast<size_t>(width)).Apply(image);
             i += 2;
 
         } else if (command == "-blur") {
@@ -61,14 +61,14 @@ int main(int argc, char *argv[]) {
             if (sigma < 0) {
                 throw std::invalid_argument("Incorrect arguments for -blur");
             }
-            bmp.Apply(GaussianBlur(sigma));
+            image = GaussianBlur(sigma).Apply(image);
             i += 1;
         } else if (command == "-gs") {
-            bmp.Apply(Grayscale());
+            image = Grayscale().Apply(image);
         } else if (command == "-sharp") {
-            bmp.Apply(Sharpening());
+            image = Sharpening().Apply(image);
         } else if (command == "-negative") {
-            bmp.Apply(Negative());
+            image = Negative().Apply(image);
         } else if (command == "-edge") {
             if (!WrongArgumentsForFilter("-edge", argc, i, 1)) {
                 return 0;
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
             if (threshold < 0 || threshold > 1) {
                 throw std::invalid_argument("Incorrect arguments for -edge, expected value from 0 to 1");
             }
-            bmp.Apply(EdgeDetection(threshold));
+            image = EdgeDetection(threshold).Apply(image);
             i += 1;
         } else if (command == "-hexagon") {
             if (!WrongArgumentsForFilter("-hexagon", argc, i, 1)) {
@@ -87,16 +87,10 @@ int main(int argc, char *argv[]) {
             if (radius <= 0) {
                 throw std::invalid_argument("Incorrect arguments for -hexagon, enter radius > 0");
             }
-            bmp.Apply(Hexagonal(radius));
+            image = Hexagonal(radius).Apply(image);
             i += 1;
         }
     }
-    bmp.Write(output_file);
+    bmp.Write(output_file, image);
     return 0;
 }
-//int main(int argc, char *argv[]) {
-//    BMP bmp;
-//    bmp.Read("../examples/example.bmp");
-//    bmp.Apply(Grayscale());
-//    bmp.Write("../examples/example2.bmp");
-//}

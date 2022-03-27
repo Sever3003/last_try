@@ -5,7 +5,7 @@
 #include <array>
 #include "image.h"
 
-class Crop :virtual  public Filter {
+class Crop : public Filter {
 public:
     Crop(size_t width, size_t height);
 

@@ -54,5 +54,4 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/image_processor.dir/DependInfo.cmake"
   "CMakeFiles/contrib_catch_main.dir/DependInfo.cmake"
-  "test/CMakeFiles/test.dir/DependInfo.cmake"
   )

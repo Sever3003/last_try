@@ -31,7 +31,7 @@
 //TEST_CASE("TestReadWrite") {
 //    BMP bmp;
 //    bmp.Read(INPUT_FILE);
-//    bmp.Write(TEST_OUTPUT_FILE);
+//    bmp.Write(TEST_OUTPUT_FILE, bmp.Read(INPUT_FILE));
 //    CompareFile(INPUT_FILE, TEST_OUTPUT_FILE);
 //}
 //

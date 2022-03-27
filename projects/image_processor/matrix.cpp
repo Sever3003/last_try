@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-Matrix::Matrix(const MatrixBody &matrix_body): body_(matrix_body) {}
+Matrix::Matrix(const MatrixBody &matrix_body) : body_(matrix_body) {}
 
 #include <iostream>
 
@@ -26,14 +26,20 @@ Image Matrix::Apply(const Image &image) const {
             double green = 0;
             double red = 0;
             double blue = 0;
+            Pixel current;
+            int current_height;
+            int current_width;
             for (int coef_i = -1 * height; coef_i <= 1 * height; ++coef_i) {
                 for (int coef_j = -1 * width; coef_j <= 1 * width; ++coef_j) {
-                    green += body_[coef_i + height][coef_j + width] *
-                             static_cast<double>(image.At(i + coef_i, j + coef_j).green);
-                    red += body_[coef_i + height][coef_j + width] *
-                           static_cast<double>(image.At(i + coef_i, j + coef_j).red);
-                    blue += body_[coef_i + height][coef_j + width] *
-                            static_cast<double>(image.At(i + coef_i, j + coef_j).blue);
+                    current = image.At(i + coef_i, j + coef_j);
+                    current_height = coef_i + height;
+                    current_width = coef_j + width;
+                    green += body_[current_height][current_width] *
+                             static_cast<double>(current.green);
+                    red += body_[current_height][current_width] *
+                           static_cast<double>(current.red);
+                    blue += body_[current_height][current_width] *
+                            static_cast<double>(current.blue);
                 }
             }
             Pixel pixel = {static_cast<uint8_t>(blue), static_cast<uint8_t>(green), static_cast<uint8_t>(red)};
